@@ -18,6 +18,8 @@ const parseXLSX = async (file) => {
       if(rowNumber === 1){return};
       let obj = {};
       row.values.forEach((value,index)=>{obj[`item${index}`] = value});
+      
+      result.push(obj);
   })
   
   return result;
@@ -32,7 +34,6 @@ const App = () => {
     let isFormatValid = false;
     if (fileName) {
       const type = fileName.split('.').pop().toLowerCase();
-      console.log(type, "type");
       if (type === 'xlsx' || type === 'xls') 
       { return isFormatValid = true }
       else { return alert('неверный формат'); }
@@ -46,15 +47,17 @@ const App = () => {
     e.persist();
     const file = e.target.files[0];
     const isFormatValid = checkFormatFile(file.name);
-    console.log(isFormatValid);
+    
     if (isFormatValid) {
       const result = await parseXLSX(file);
       setTableElems([...tableElems, result].flat());
+
+
     }
 
   };
 
-  console.log(tableElems, "result");
+  
 
 
 
