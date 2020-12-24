@@ -6,7 +6,6 @@ import TableBuilder from "./table";
 import './App.css';
 
 const parseXLSX = async (file) => {
-  //парсим файл и возвращаем результат
   const workbook = new Excel.Workbook();
   const reader = new FileReader();
   reader.readAsArrayBuffer(file);
@@ -19,8 +18,6 @@ const parseXLSX = async (file) => {
       if(rowNumber === 1){return};
       let obj = {};
       row.values.forEach((value,index)=>{obj[`item${index}`] = value});
-      console.log(obj);
-      result.push(obj);
   })
   
   return result;
@@ -53,8 +50,6 @@ const App = () => {
     if (isFormatValid) {
       const result = await parseXLSX(file);
       setTableElems([...tableElems, result].flat());
-
-
     }
 
   };
